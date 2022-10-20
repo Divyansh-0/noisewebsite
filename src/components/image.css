@@ -1,0 +1,13 @@
+.Canvas {
+  background: black;
+}
+.img {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  height: 350px;
+  width: 350px;
+
+  justify-content: center;
+  padding: 20px;
+}
