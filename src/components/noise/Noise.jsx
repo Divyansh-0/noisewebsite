@@ -143,7 +143,12 @@ const Noise = () => {
             value={enteredWarp}
           ></input>
           <label className="label">Range</label>
-          <input type={"text"} className="input" value={enteredRange}></input>
+          <input
+            type={"text"}
+            className="input"
+            value={enteredRange}
+            onChange={RangeChange}
+          ></input>
 
           <button type="submit">Apply Changes</button>
         </form>
