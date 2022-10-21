@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./noise.scss";
 
@@ -9,10 +10,13 @@ const Noise = () => {
   const [enteredSeed, setSeed] = useState("");
   const [enteredFrequency, setFrequency] = useState("");
   const [enteredWavelength, setWavelength] = useState("");
-  const [enteredWarp, setWarp] = useState("");
+  // const [enteredWarp, setWarp] = useState("");
   const [enteredRange, setRange] = useState("");
 
-  const [isActive, setIsActive] = useState(false);
+  // const [isActive, setIsActive] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const [isSelected, setSelected] = useState(false);
 
   const OctaveChange = (e) => {
     setOctave(e.target.value);
@@ -38,10 +42,10 @@ const Noise = () => {
     setWavelength(e.target.value);
     console.log(e.target.value);
   };
-  const WarpChange = (e) => {
-    setWarp(e.target.value);
-    console.log(e.target.value);
-  };
+  // const WarpChange = (e) => {
+  //   setWarp(e.target.value);
+  //   console.log(e.target.value);
+  // };
   const RangeChange = (e) => {
     setRange(e.target.value);
     console.log(e.target.value);
@@ -52,107 +56,130 @@ const Noise = () => {
     setOctave("");
     setPersistance("");
     setlacunarity("");
-    setFrequency("");
     setSeed("");
+    setFrequency("");
     setWavelength("");
-    setWarp("");
-    setRange(" ");
+    // setWarp("");
+    setRange("");
+
+    setIsDisabled(true);
+    // A function to make an Api Call
   };
 
   return (
     <div className="noise">
-      <button className="noise-btn" onClick={(e) => setIsActive(!isActive)}>
-        Customize the image setting
-      </button>
-      {isActive && (
-        <form className="form" onSubmit={submitHandler}>
-          <label className="label">Octaves</label>
-          <div className="field">
-            <span>{enteredOctave}</span>
-            <input
-              type={"range"}
-              className="input"
-              max="8"
-              min="1"
-              step="1"
-              onChange={OctaveChange}
-              value={enteredOctave}
-            ></input>
-          </div>
-          <label className="label">Persistance</label>
-          <div className="field">
-            <span>{enteredPersistance}</span>
-            <input
-              type={"range"}
-              className="input"
-              max="1"
-              min="0.00"
-              step="0.01"
-              onChange={PersistanceChange}
-              value={enteredPersistance}
-            ></input>
-          </div>
-          <label className="label">lacunarity</label>
+      <button className="noise-btn">Customize the image setting</button>
+      <form className="form" onSubmit={submitHandler}>
+        <label className="label">Octaves</label>
+        <div className="field">
+          <span>{enteredOctave}</span>
           <input
             type={"range"}
             className="input"
-            onChange={lacunarityChange}
-            value={enteredlacunarity}
+            max="8"
+            min="1"
+            step="1"
+            onChange={OctaveChange}
+            value={enteredOctave}
+            disabled={isDisabled}
           ></input>
+        </div>
 
-          <label className="label">Seed</label>
-          <input
-            type={"number"}
-            className="input"
-            onChange={SeedChange}
-            value={enteredSeed}
-          ></input>
-
-          <label className="label">Frequency</label>
-          <div className="field">
-            <span>{enteredFrequency}</span>
-            <input
-              type={"range"}
-              max="32"
-              min="1"
-              step="1"
-              className="input"
-              onChange={FrequencyChange}
-              value={enteredFrequency}
-            ></input>
-          </div>
-
-          <label className="label">Wavelength</label>
-          <div className="field">
-            <span>{enteredWavelength}</span>
-            <input
-              type={"range"}
-              min="0.00"
-              step="0.01"
-              className="input"
-              onChange={WavelengthChange}
-              value={enteredWavelength}
-            ></input>
-          </div>
-
-          <label className="label">Warp</label>
+        <label className="label">Persistance</label>
+        <FontAwesomeIcon icon="fa-thin fa-circle-chevron-down" />
+        <div className="field">
+          <span>{enteredPersistance}</span>
           <input
             type={"range"}
             className="input"
-            onChange={WarpChange}
-            value={enteredWarp}
+            max="1"
+            min="0.00"
+            step="0.01"
+            onChange={PersistanceChange}
+            value={enteredPersistance}
+            disabled={isDisabled}
           ></input>
-          <label className="label">Range</label>
+        </div>
+        <label className="label">lacunarity</label>
+        <input
+          type={"range"}
+          className="input"
+          onChange={lacunarityChange}
+          value={enteredlacunarity}
+          disabled={isDisabled}
+        ></input>
+        <label className="label">Seed</label>
+        <input
+          type={"number"}
+          className="input"
+          onChange={SeedChange}
+          value={enteredSeed}
+          disabled={isDisabled}
+        ></input>
+        <label className="label">Frequency</label>
+        <div className="field">
+          <span>{enteredFrequency}</span>
           <input
-            type={"text"}
+            type={"range"}
+            max="32"
+            min="1"
+            step="1"
             className="input"
-            value={enteredRange}
-            onChange={RangeChange}
+            onChange={FrequencyChange}
+            value={enteredFrequency}
+            disabled={isDisabled}
           ></input>
-
-          <button type="submit">Apply Changes</button>
-        </form>
-      )}
+        </div>
+        <label className="label">Wavelength</label>
+        <div className="field">
+          <span>{enteredWavelength}</span>
+          <input
+            type={"range"}
+            min="0"
+            step="128"
+            max="2000"
+            className="input"
+            onChange={WavelengthChange}
+            value={enteredWavelength}
+            disabled={isDisabled}
+          ></input>
+        </div>
+        {
+          // <input
+          //   type={"range"}
+          //   className="input"
+          //   onChange={WarpChange}
+          //   value={enteredWarp}
+          // ></input>
+          <div className="dropdown">
+            <div
+              className="dropdown-btn"
+              onClick={(e) => setSelected(!isSelected)}
+            >
+              Warp <FontAwesomeIcon icon="fa-thin fa-circle-chevron-down" />
+              {isSelected && (
+                <div className="dropdown-content">
+                  <div className="dropdown-item">A</div>
+                  <div className="dropdown-item">B</div>
+                  <div className="dropdown-item">C</div>
+                </div>
+              )}
+            </div>
+          </div>
+        }
+        <label className="label">Range</label>
+        <input
+          type={"number"}
+          className="input"
+          value={enteredRange}
+          onChange={RangeChange}
+          disabled={isDisabled}
+        ></input>
+        {isDisabled && (
+          <button onClick={(e) => setIsDisabled(!isDisabled)}>Edit</button>
+        )}
+        {!isDisabled && <button type="submit">Apply Changes</button>}
+      </form>
     </div>
   );
 };
